@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block link%}
+<a href="{{ url_for('create') }}">create chatroom</a>
+        <a href="{{ url_for('search') }}">search chatroom</a>
+{% endblock %}
+
+{% block content %}
+
+          <table>
+        <tr valign="top">
+            <td><img src="{{ user.avatar(128) }}"></td>
+            <td>
+                <h1>User: {{ user.username }}</h1>
+                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+                {% if user == current_user %}
+                <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <hr>
+     {% for x in subscribed %}
+<a href="{{ url_for('chat',room=x['chatroom_name']) }}">{{x['chatroom_name']}}</a>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

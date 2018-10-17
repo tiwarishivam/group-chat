@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block link %}
+<a href="{{ url_for('index',username=current_user.username) }}">return to your profile</a>
+{% endblock %}
+
+{% block content %}
+       <form method="post">
+    <label for="chatroom_name">chatroom_name</label>
+    <input name="chatroom_name" id="chatroom_name" required>
+    <input type="submit" value="search">
+  </form>
+  {% for names in matching_names %}
+ <p> {{ names['name'] }} </p>
+        <a href="{{ url_for('joinroom',name=names['name']) }}">join</a>
+      {% if not loop.last %}
+        <hr>
+      {% endif %}
+  {% endfor %}
+{% endblock %}
